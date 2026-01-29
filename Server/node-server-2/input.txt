@@ -1,0 +1,2 @@
+I love working on Node.js
+I'm excited to learn Express.js, MongoDB - hence completing MERN Stack
