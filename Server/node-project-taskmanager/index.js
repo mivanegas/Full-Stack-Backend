@@ -33,7 +33,7 @@ app.listen(3000, () => {
         - APIs
             1. GET /tasks - Returns list of all task ✅
             2. POST / tasks - Create a new task ✅
-            3. PATCH /tasks/:id - Update existing task
-            4. DELETE /tasks/:id - Delete existing tasks
+            3. PATCH /tasks/:id - Update existing task ✅
+            4. DELETE /tasks/:id - Delete existing tasks ✅
 
 */

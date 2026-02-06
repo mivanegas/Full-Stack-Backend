@@ -1,4 +1,4 @@
-const TASKS = [
+let TASKS = [
   {
     id: 1,
     text: "Revise Intermediate JS",
@@ -30,9 +30,22 @@ let taskCounter = 6;
 
 // Return tasks - controllers
 const getTasks = (req, res) => {
+  const { searchText, completed } = req.query;
+
+  let tasks = [...TASKS];
+
+  if (searchText) {
+    tasks = TASKS.filter((t) => t.text.includes(searchText));
+  }
+
+  if (completed != undefined) {
+    let completedBoolean = completed == "false" ? false : true;
+    tasks = tasks.filter((t) => t.completed == completedBoolean);
+  }
+
   res.json({
     status: "SUCCESS",
-    data: TASKS,
+    data: tasks,
   });
 };
 
@@ -72,7 +85,7 @@ const updateTask = (req, res) => {
   }
 
   if (completed != undefined) {
-    existingTask.completed = completed;
+    existingTask.completed = completed == "false" ? false : true;
   }
 
   res.json({
@@ -81,8 +94,29 @@ const updateTask = (req, res) => {
   });
 };
 
+// Delete tasks - controllers
+const deleteTask = (req, res) => {
+  const { id } = req.params;
+
+  let existingTask = TASKS.find((t) => t.id == id);
+  if (!existingTask) {
+    return res.status(404).json({
+      status: "FAILED",
+      message: "Task not found",
+    });
+  }
+
+  TASKS = TASKS.filter((t) => t.id != id);
+
+  res.json({
+    status: "SUCCESS",
+    message: "Task deleted successfully!",
+  });
+};
+
 module.exports = {
   getTasks,
   createTask,
   updateTask,
+  deleteTask,
 };
