@@ -1,0 +1,62 @@
+# MongoDB
+  - Download MongoDB Community Server
+    - Link: https://www.mongodb.com/try/download/community
+    - Command: mongod (Start the MongoDB Server) - Run it once to start local mongodb server
+
+  - MongoDB Shell
+    - Download MongoDB Shell
+      - Link: https://www.mongodb.com/try/download/shell
+    - Command: mongosh (To connect with MongoDB Server)
+    - MongoDB Shell Commands:
+      - show dbs: Display list of existing DBs
+      - use <db_name>: Switch to an existing DB (If a DB with that name does not exist, then a new DB with that name will be created)
+      - db: Current database
+      - db.dropDatabase(): Delete current database
+      - db.createCollection('<collection_name>'): Create a new collection within current database
+      - show collections: Display all collections within current database
+      - db.collection.drop(): Delete the collection from current database
+
+    - MongoDB Operations *** (CRUD Operations)
+      - CREATE (C)
+        - db.collection.insertOne({ a: 5 }): Insert a single document inside a collection
+        - db.collection.insertMany([{ a: 5 }, { b: 10 }]): Insert multiple documents inside a collection
+      - READ (R)
+        - db.collection.find({query}): Return all documents within a collection that match the query
+        - db.collection.findOne({query}): Return first document that matches the query
+      - UPDATE (U)
+        - db.collection.updateOne({query}, { $set: { a: 5 }}): Update a single document which matches the query
+        - db.collection.updateMany({query}, { $set: { a: 5 }}): Update all documents which match the query
+      - DELETE (D)
+        - db.collection.deleteOne({query}): Delete a single document which matches the query
+        - db.collection.deleteMany({query}): Delete all documents which match the query
+
+    - MongoDB Queries:
+      - {}: All documents
+      - { x: 5 }: Documents where 'x' field is having value 5
+      - { x: 5, y: 10 }: Documents where 'x' field is having value 5, 'y' field is having value 10
+      - Using 'MongoDB Operators'
+        - Comparison operators:
+          - Syntax: 
+            { property1: { $operator: value1 }}
+          - List:
+            - $ne: Not equals to
+            - $gt: Greater than, $gte: Greater than or equals to
+            - $lt: Lesser than, $lte: Lesser than or equals to
+            - $in: (IN) Returns the documents if the property value matches any of the specified values in the array
+            - $nin: (NIN) Returns the documents if the property value does not match any of the specified values in the array
+        - Logical operators:
+          - Syntax:
+            { 
+              $operator: [
+                { property1: value1 },
+                { property1: value2 },
+              ]
+            }
+          - List:
+            - $and: Logical AND
+            - $or: Logical OR
+
+  - MongoDB Compass
+    - Download MongoDB Compass
+      - Link: https://www.mongodb.com/try/download/compass
+    - GUI for MongoDB

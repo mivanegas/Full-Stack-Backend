@@ -1,0 +1,45 @@
+# Databases
+  - Data: Raw information
+  - Databases: 
+    - "Permanent" Storage
+    - Structure way to store, manage and retrieve data efficiently
+  - 3 Tier Architecture
+    Client <-> Server <-> Databases
+  - Advantages of DB:
+    - Permanent Storage
+    - Fast search
+    - Security
+    - Backup
+
+# Types of Databases
+1. SQL (Relational Database)
+  - Structure: Table (Individual records are stored in "rows")
+  - Fixed Schema
+  - Examples: PostgreSQL, MySQL, SQLServer, Oracle, etc.
+2. NoSQL (Non-Relational Database)
+  - Structure: Collection (Individual records are stored in JSON-like [BSON]"documents")
+  - Flexible Schema
+  - Examples: MongoDB, Firebase, Cassandra, AWS DynamoDB, etc.
+
+# Additional Info
+  - BSON: Binary JSON
+    - Format in which documents are stored in NoSQL Databases
+    - Binary-encoded
+    - Optimized for machines
+    - Designed for perfomance and storage efficiency
+    - Has specific data types: Integer (non decimal numbers), Float (decimal numbers), Binary data, Date, etc.
+
+# MongoDB
+  - NoSQL DB
+  - Collections and Documents
+  - MongoDB Atlas: Cloud DB
+  - BSON Document Data Types:
+    - ObjectID: Unique ID for each document (Automatically generated '_id' field)
+    - Int32/Int64: Integer Numbers
+    - Double (64)/Decimal128: Decimal Numbers
+    - String: JS Strings ("" only)
+    - Boolean: JS Boolean
+    - Undefined: JS Undefined
+    - Null: JS Null
+    - Object: JS Object
+    - Array: JS Array
