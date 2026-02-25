@@ -1,13 +1,25 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+dotenv.config();
+
+const customerRoutes = require("./src/routes/customer.routes");
 
 const app = express();
+
+app.use(express.urlencoded({ extended: false }));
+
+app.use("", customerRoutes);
 
 app.get("/", (req, res) => {
   res.send("We are learning Mongoose ODM");
 });
 
-app.listen(3000, () => {
-  console.log("Serve is up :)");
+app.listen(process.env.PORT, () => {
+  mongoose
+    .connect(process.env.MONGODB_URL)
+    .then(() => console.log("Server is ready :)"))
+    .catch((error) => console.log("Database connection error", error));
 });
 
 /* 
