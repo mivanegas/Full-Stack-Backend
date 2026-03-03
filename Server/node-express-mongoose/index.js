@@ -4,12 +4,16 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const customerRoutes = require("./src/routes/customer.routes");
+const sellerRoutes = require("./src/routes/seller.routes");
+const productRoutes = require("./src/routes/product.routes");
 
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 
 app.use("", customerRoutes);
+app.use("", sellerRoutes);
+app.use("", productRoutes);
 
 app.get("/", (req, res) => {
   res.send("We are learning Mongoose ODM");
