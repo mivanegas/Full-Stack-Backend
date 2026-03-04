@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 //   reviews: Array,
 //   preferences: Array,
 //   addresses: Array,
-//   paymentMethods: Array
-// })
+//   paymentMethods: Array,
+// });
 
 const customerSchema = mongoose.Schema({
   name: String,

@@ -18,6 +18,7 @@ const fetchSellers = async (req, res) => {
 const createSeller = async (req, res) => {
   try {
     const { name, email } = req.body;
+
     await Seller.create({ name, email });
 
     res.json({
@@ -27,7 +28,7 @@ const createSeller = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       status: "FAILED",
-      message: "Something went wrong",
+      error,
     });
   }
 };
@@ -37,15 +38,14 @@ const updateSeller = async (req, res) => {
     const { id } = req.params;
     const { name, email } = req.body;
     await Seller.findByIdAndUpdate(id, { name, email });
-
     res.json({
       status: "SUCCESS",
-      message: "Seller updated successfully",
+      message: "Seller updated successfully!",
     });
   } catch (error) {
     res.status(500).json({
       status: "FAILED",
-      message: "Something went wrong",
+      error,
     });
   }
 };
@@ -54,15 +54,14 @@ const deleteSeller = async (req, res) => {
   try {
     const { id } = req.params;
     await Seller.findByIdAndDelete(id);
-
     res.json({
       status: "SUCCESS",
-      message: "Seller deleted successfully",
+      message: "Seller deleted successfully!",
     });
   } catch (error) {
     res.status(500).json({
       status: "FAILED",
-      message: "Something went wrong",
+      error,
     });
   }
 };

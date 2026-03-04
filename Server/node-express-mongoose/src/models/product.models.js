@@ -5,7 +5,7 @@ const productSchema = mongoose.Schema({
   title: String,
   price: Number,
   category: String,
-  sellerId: {
+  seller: {
     type: mongoose.Schema.Types.ObjectId,
     ref: Seller,
   },

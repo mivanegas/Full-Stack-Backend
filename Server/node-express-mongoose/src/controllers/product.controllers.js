@@ -17,8 +17,9 @@ const fetchProducts = async (req, res) => {
 
 const createProduct = async (req, res) => {
   try {
-    const { title, price, category, sellerId } = req.body;
-    await Customer.create({ title, price, category, sellerId });
+    const { title, price, category, seller } = req.body;
+
+    await Product.create({ title, price, category, seller });
 
     res.json({
       status: "SUCCESS",
@@ -27,7 +28,7 @@ const createProduct = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       status: "FAILED",
-      message: "Something went wrong",
+      error,
     });
   }
 };
@@ -35,17 +36,16 @@ const createProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, price, category, sellerId } = req.body;
-    await Product.findByIdAndUpdate(id, { title, price, category, sellerId });
-
+    const { title, price, category, seller } = req.body;
+    await Product.findByIdAndUpdate(id, { title, price, category, seller });
     res.json({
       status: "SUCCESS",
-      message: "Product updated successfully",
+      message: "Product updated successfully!",
     });
   } catch (error) {
     res.status(500).json({
       status: "FAILED",
-      message: "Something went wrong",
+      error,
     });
   }
 };
@@ -54,15 +54,14 @@ const deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;
     await Product.findByIdAndDelete(id);
-
     res.json({
       status: "SUCCESS",
-      message: "Product deleted successfully",
+      message: "Product deleted successfully!",
     });
   } catch (error) {
     res.status(500).json({
       status: "FAILED",
-      message: "Something went wrong",
+      error,
     });
   }
 };
