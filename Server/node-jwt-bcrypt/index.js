@@ -2,37 +2,74 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
-const jwt = require("jsonwebtoken");
+
+const {
+  isAuthenticated,
+  isAdmin,
+  isPremium,
+  isAdminOrPremium,
+  isAuthorized,
+} = require("./src/middlewares/auth.middleware");
 
 const userRoutes = require("./src/routes/user.routes");
 
-const isUserLoggedIn = (req, res, next) => {
-  try {
-    const obj = jwt.verify(req.headers.token, "ILoveNodejs");
-    console.log(obj);
-    next();
-  } catch (error) {
-    return res.status(401).send("You are not logged in. Please login first!");
-  }
-};
-
 const app = express();
 
+app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("", userRoutes);
 
 app.get("/", (req, res) => {
-  res.send("Authentication Flow, bcrypt, JWT");
+  res.send({
+    title: "User Authentication",
+  });
 });
 
-app.get("/dashboard", (req, res) => {
-  const name = "Maria";
-  res.send(`
-    <h1>THIS IS THE DASHBOARD PAGE</h1>
-    <h2>WELCOME ${name}!<h2>
-    `);
-});
+app.get(
+  "/admin/dashboard",
+  isAuthenticated,
+  isAuthorized("admin"),
+  (req, res) => {
+    const { name, email } = req.user;
+
+    res.send(`
+    <h1>ADMIN DASHBOARD PAGE</h1>
+    <h2>Welcome admin, ${name}!</h2>
+    <p>Your email is ${email}</p>
+  `);
+  },
+);
+
+app.get(
+  "/movies/premium",
+  isAuthenticated,
+  isAuthorized("premium"),
+  (req, res) => {
+    const { name, email } = req.user;
+
+    res.send(`
+    <h1>PREMIUM MOVIES</h1>
+    <h2>Welcome premium user, ${name}!</h2>
+    <p>Your email is ${email}</p>
+  `);
+  },
+);
+
+app.get(
+  "/movies/download",
+  isAuthenticated,
+  isAuthorized("admin", "premium"),
+  (req, res) => {
+    const { name, email } = req.user;
+
+    res.send(`
+    <h1>DOWNLOAD MOVIES</h1>
+    <h2>Welcome authorized user, ${name}!</h2>
+    <p>Your email is ${email}</p>
+  `);
+  },
+);
 
 mongoose.connect(process.env.MONGODB_URL).then(() => {
   app.listen(3000, () => {
@@ -59,7 +96,7 @@ mongoose.connect(process.env.MONGODB_URL).then(() => {
 
   # Authentication vs Authorization:
     - Authentication: Who are you?
-      - Unauthenticated response status code: 401 Unathorized
+      - Unauthenticated response status code: 401 Unauthorized
     - Authorization: What are you allowed to do?
       - Unauthorized response status code: 403 Forbidden
 
